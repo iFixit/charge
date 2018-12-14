@@ -8,7 +8,6 @@ require 'lib/charge/entities/asset'
 
 require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
-require 'lib/charge/factories/reference_factory'
 
 SOURCE_BUCKET='ifixit-static-source'
 LIVE_BUCKET='ifixit-assets'
@@ -20,8 +19,6 @@ BASE_PREFIX='static/'
 Charge::Config.set_buckets SOURCE_BUCKET, LIVE_BUCKET
 Charge::Config.set_url_root S3_URL_ROOT
 Charge::Config.set_base_prefix BASE_PREFIX
-
-references = Charge::Factories::ReferenceFactory
 
 helpers do
    def get_parent_dir directory
