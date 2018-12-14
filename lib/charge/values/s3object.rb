@@ -5,8 +5,8 @@ module Charge
       class S3Object
          attr :key
 
-         def initialize image_link
-            set_key image_link.key
+         def initialize key
+            set_key key
          end
 
          def bucket
