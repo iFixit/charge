@@ -2,10 +2,9 @@ require 'lib/charge/charge'
 require 'lib/charge/values/upload_spec'
 require 'lib/charge/services/image_converter'
 require 'lib/charge/helpers/streaming_output'
+require 'lib/charge/helpers/imageurl'
 
 require 'tempfile'
-
-require 'lib/imageurl'
 
 module Charge
    module Actions
@@ -102,7 +101,7 @@ module Charge
             stream_msg "Displaying image instead!"
             size_k = @new_source_file.length / 1024 
             stream_msg "File Source File Size: #{size_k}K"
-            stream_msg "<img src=\"#{ImageUrl.image_to_url 'image', @new_source_file}\">"
+            stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_source_file}\">"
 
             #@s3.upload(new_source_file, source_bucket, @upload_spec.key)
          end
@@ -114,7 +113,7 @@ module Charge
             stream_msg "displaying image instead!"
             size_k = @new_live_file.length / 1024 
             stream_msg "new live file size: #{size_k}k"
-            stream_msg "<img src=\"#{ImageUrl.image_to_url 'image', @new_live_file}\">"
+            stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_live_file}\">"
 
             #@s3.upload(new_live_file, live_bucket, @upload_spec.key)
          end
