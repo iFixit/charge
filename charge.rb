@@ -55,12 +55,9 @@ get '/view/*' do
 end
 
 get '/edit/*' do
-   @key = params[:splat].first
-   enforce_static_prefix @key
-   @asset = Charge::Entities::Asset.new @key
-   @source_reference = references.source @key
-   @live_reference = references.live @key
-   @metadata_reference = references.metadata @key
+   key = params[:splat].first
+   enforce_static_prefix key
+   @asset = Charge::Entities::Asset.new key
    erb :edit
 end
 
