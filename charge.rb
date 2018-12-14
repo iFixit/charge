@@ -8,10 +8,6 @@ require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
 require 'lib/charge/factories/references'
 
-
-# Old requires
-require './lib/charge_config'
-
 SOURCE_BUCKET='ifixit-static-source'
 LIVE_BUCKET='ifixit-assets'
 
@@ -22,11 +18,6 @@ BASE_PREFIX='static/'
 Charge::Config.set_buckets SOURCE_BUCKET, LIVE_BUCKET
 Charge::Config.set_url_root S3_URL_ROOT
 Charge::Config.set_base_prefix BASE_PREFIX
-
-Charge::Config.stub_uploads # !!!
-
-config = ChargeConfig.new SOURCE_BUCKET, LIVE_BUCKET
-config.set_url_root S3_URL_ROOT
 
 references = Charge::Factories::ReferenceFactory
 
