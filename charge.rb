@@ -108,7 +108,8 @@ get '/restore-original/*' do
 end
 
 get '/worst' do
-   @biggest = lister.find_largest_objects(LIVE_BUCKET, BASE_PREFIX, 100)
+   s3service = Charge::Config.s3service.new()
+   @biggest = s3service.find_largest_objects(LIVE_BUCKET, BASE_PREFIX, 100)
    erb :worst
 end
 

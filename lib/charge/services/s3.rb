@@ -5,6 +5,22 @@ require 'tempfile'
 module Charge
    module Services
       class S3
+         # Used to filter large objects list
+         IGNORED_LARGE_OBJECT_EXTS = [
+            'pdf',
+            'zip',
+            'mp4',
+            'webm',
+            'ogv',
+            'mov',
+            'ttf',
+            'eot',
+            'woff',
+            'm4v',
+            'psd',
+            'ogg',
+         ]
+
          def initialize
             @region = Config.region
          end
@@ -36,10 +52,40 @@ module Charge
             return s3bucket.object(key).exists?
          end
 
+         def find_largest_objects(bucket, prefix, n = 50)
+            return find_whole_bucket(bucket, prefix).sort_by { |item|
+                  item['size']
+               }.reject { |item|
+                  IGNORED_LARGE_OBJECT_EXTS.any? { |ignore_ext|
+                     /#{ignore_ext}$/i.match(item['key'])
+                  }
+               }.last(n).reverse
+         end
+
+         private
+
          def client
             return @s3 unless @s3.nil?
             @s3 = Aws::S3::Client.new(region: @region)
             return @s3
+         end
+
+         def find_whole_bucket(bucket, prefix)
+            return Enumerator.new do |yielder|
+               fetch_next = nil
+               loop do
+                  req = {
+                     bucket: bucket, # required
+                     continuation_token: fetch_next,
+                     prefix: prefix,
+                  }
+                  resp = client().list_objects_v2(req)
+                  resp['contents'].each { |item| yielder << item }
+                  fetch_next = resp['next_continuation_token']
+                  puts "fetched #{resp.key_count}... #{fetch_next}"
+                  raise StopIteration unless fetch_next
+               end
+            end.lazy
          end
       end
 
