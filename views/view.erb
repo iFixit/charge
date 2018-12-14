@@ -1,17 +1,17 @@
 <h2> View </h2>
-<h3><%= @key %></h3>
+<h3><%= @asset.key %></h3>
 <a href="/browse/<%= @parent_directory %>">↑ Parent Directory</a>
 
 <p> Live:
 </p>
 <ul>
    <li>
-      Link: <a href="<%= @live_reference.url %>"><%= @live_reference.url %></a>
+      Link: <a href="<%= @asset.live.url %>"><%= @asset.live.url %></a>
    </li>
-<% if @live_reference.exists_in_s3? %>
-   <li>Size: <%= @live_reference.size / 1024 %>K</li>
-   <li>Content-Type: <%= @live_reference.type %></li>
-   <li>Last Modified: <%= @live_reference.last_modified %></li>
+<% if @asset.live.exists_in_s3? %>
+   <li>Size: <%= @asset.live.size / 1024 %>K</li>
+   <li>Content-Type: <%= @asset.live.type %></li>
+   <li>Last Modified: <%= @asset.live.last_modified %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
@@ -21,32 +21,32 @@
 <ul>
    <li>
       Link:
-         <a href="<%= @source_reference.url %>"><%= @source_reference.url %></a>
+         <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a>
    </li>
-<% if @source_reference.exists_in_s3? %>
-   <li>Size: <%= @source_reference.size / 1024 %>K</li>
-   <li>Content-Type: <%= @source_reference.type %></li>
-   <li>Last Modified: <%= @source_reference.last_modified %></li>
+<% if @asset.source.exists_in_s3? %>
+   <li>Size: <%= @asset.source.size / 1024 %>K</li>
+   <li>Content-Type: <%= @asset.source.type %></li>
+   <li>Last Modified: <%= @asset.source.last_modified %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
 </ul>
 </p>
 
-<a href="/edit/<%= @key %>">
+<a href="/edit/<%= @asset.key %>">
    <h3>Edit this image</h3>
 </a>
 
 <hr>
 <h2>Current Live Image:</h2>
 <hr>
-<img src="<%= @live_reference.url %>" />
+<img src="<%= @asset.live.url %>" />
 <hr>
 <h2>Current Source Image:</h2>
 <hr>
-<img src="<%= @source_reference.url %>" />
+<img src="<%= @asset.source.url %>" />
 
 <script>
    console.log("Did something go wrong?");
-   console.log("Visit: https://charge.cominor.com/restore-original/<%= @key %>");
+   console.log("Visit: https://charge.cominor.com/restore-original/<%= @asset.key %>");
 </script>

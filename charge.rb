@@ -47,13 +47,10 @@ get '/browse/*' do
 end
 
 get '/view/*' do
-   @key = params[:splat].first
-   enforce_static_prefix @key
-   @parent_directory = get_parent_dir @key
-   @asset = Charge::Entities::Asset.new @key
-   @source_reference = references.source @key
-   @live_reference = references.live @key
-   @metadata_reference = references.metadata @key
+   key = params[:splat].first
+   enforce_static_prefix key
+   @parent_directory = get_parent_dir key
+   @asset = Charge::Entities::Asset.new key
    erb :view
 end
 
