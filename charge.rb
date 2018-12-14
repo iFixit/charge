@@ -37,12 +37,12 @@ config.set_url_root S3_URL_ROOT
 reference_factory = ReferenceFactory.new config 
 
 helpers do
-	def get_parent_dir directory
-		paths = directory.split('/')
-		paths.pop
-		return BASE_PREFIX if paths.empty?
-		return paths.join('/') + '/'
-	end
+   def get_parent_dir directory
+      paths = directory.split('/')
+      paths.pop
+      return BASE_PREFIX if paths.empty?
+      return paths.join('/') + '/'
+   end
    def enforce_static_prefix path
       unless /^#{BASE_PREFIX}/.match(path)
          halt 400, "You can only browse #{BASE_PREFIX}"
@@ -78,11 +78,11 @@ get '/edit/*' do
 end
 
 post '/edit-handler/*' do
-	edit_spec = Charge::Factories::EditSpecFactory::from_form_params params
+   edit_spec = Charge::Factories::EditSpecFactory::from_form_params params
    enforce_static_prefix edit_spec.key
    stream do |output|
       editor = Charge::Actions::Editor.new edit_spec 
-		editor.set_output_stream output
+      editor.set_output_stream output
       editor.edit
    end
 end
@@ -94,19 +94,19 @@ get '/upload/*' do
 end
 
 post '/upload-handler/*' do
-	upload_spec = Charge::Factories::UploadSpecFactory::from_form_params params
-	enforce_static_prefix upload_spec.key
-	stream do |output|
-		uploader = Charge::Actions::Uploader.new upload_spec
-		uploader.set_output_stream output
-		uploader.upload
-	end
+   upload_spec = Charge::Factories::UploadSpecFactory::from_form_params params
+   enforce_static_prefix upload_spec.key
+   stream do |output|
+      uploader = Charge::Actions::Uploader.new upload_spec
+      uploader.set_output_stream output
+      uploader.upload
+   end
 end
 
 get '/restore-original/*' do
    @key = params[:splat].first
    enforce_static_prefix @key
-	'sorry, restoration not yet implemented'
+   'sorry, restoration not yet implemented'
 end
 
 get '/worst' do

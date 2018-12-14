@@ -7,7 +7,7 @@ class S3Reference
 
    def initialize(config, key, region='us-east-1')
       @config = config
-		@region = region
+      @region = region
       set_key key
    end
 
