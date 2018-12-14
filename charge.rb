@@ -14,8 +14,6 @@ require './lib/references'
 require './lib/charge_config'
 require './lib/reference_factory'
 
-require './lib/uploader'
-
 SOURCE_BUCKET='ifixit-static-source'
 LIVE_BUCKET='ifixit-assets'
 
