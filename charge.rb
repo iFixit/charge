@@ -4,6 +4,8 @@ $LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'lib/charge/charge'
 
+require 'lib/charge/entities/asset'
+
 require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
 require 'lib/charge/factories/reference_factory'
@@ -48,6 +50,7 @@ get '/view/*' do
    @key = params[:splat].first
    enforce_static_prefix @key
    @parent_directory = get_parent_dir @key
+   @asset = Charge::Entities::Asset.new @key
    @source_reference = references.source @key
    @live_reference = references.live @key
    @metadata_reference = references.metadata @key
@@ -57,6 +60,7 @@ end
 get '/edit/*' do
    @key = params[:splat].first
    enforce_static_prefix @key
+   @asset = Charge::Entities::Asset.new @key
    @source_reference = references.source @key
    @live_reference = references.live @key
    @metadata_reference = references.metadata @key
@@ -92,6 +96,7 @@ end
 get '/restore-original/*' do
    @key = params[:splat].first
    enforce_static_prefix @key
+   @asset = Charge::Entities::Asset.new @key
    'sorry, restoration not yet implemented'
 end
 
