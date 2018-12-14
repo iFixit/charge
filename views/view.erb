@@ -9,9 +9,9 @@
       Link: <a href="<%= @live_reference.url %>"><%= @live_reference.url %></a>
    </li>
 <% if @live_reference.exists_in_s3? %>
-   <li>Size: <%= @live_reference.data[:content_length] / 1024 %>K</li>
-   <li>Content-Type: <%= @live_reference.data[:content_type] %></li>
-   <li>Last Modified: <%= @live_reference.data[:last_modified] %></li>
+   <li>Size: <%= @live_reference.size / 1024 %>K</li>
+   <li>Content-Type: <%= @live_reference.type %></li>
+   <li>Last Modified: <%= @live_reference.last_modified %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
@@ -24,9 +24,9 @@
          <a href="<%= @source_reference.url %>"><%= @source_reference.url %></a>
    </li>
 <% if @source_reference.exists_in_s3? %>
-   <li>Size: <%= @source_reference.data[:content_length] / 1024 %>K</li>
-   <li>Content-Type: <%= @source_reference.data[:content_type] %></li>
-   <li>Last Modified: <%= @source_reference.data[:last_modified] %></li>
+   <li>Size: <%= @source_reference.size / 1024 %>K</li>
+   <li>Content-Type: <%= @source_reference.type %></li>
+   <li>Last Modified: <%= @source_reference.last_modified %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>

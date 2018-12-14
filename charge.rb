@@ -61,18 +61,18 @@ get '/view/*' do
    @key = params[:splat].first
    enforce_static_prefix @key
    @parent_directory = get_parent_dir @key
-   @source_reference = reference_factory.get_source_reference @key
-   @live_reference = reference_factory.get_live_reference @key
-   @metadata_reference = reference_factory.get_metadata_reference @key
+   @source_reference = references.source @key
+   @live_reference = references.live @key
+   @metadata_reference = references.metadata @key
    erb :view
 end
 
 get '/edit/*' do
    @key = params[:splat].first
    enforce_static_prefix @key
-   @source_reference = reference_factory.get_source_reference @key
-   @live_reference = reference_factory.get_live_reference @key
-   @metadata_reference = reference_factory.get_metadata_reference @key
+   @source_reference = references.source @key
+   @live_reference = references.live @key
+   @metadata_reference = references.metadata @key
    erb :edit
 end
 
