@@ -6,6 +6,8 @@ require 'lib/charge/charge'
 
 require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
+require 'lib/charge/factories/references'
+
 
 # Old requires
 require './lib/references'
@@ -29,7 +31,8 @@ Charge::Config.stub_uploads # !!!
 config = ChargeConfig.new SOURCE_BUCKET, LIVE_BUCKET
 config.set_url_root S3_URL_ROOT
 
-reference_factory = ReferenceFactory.new config 
+reference_factory = ReferenceFactory.new config
+references = Charge::Factories::ReferenceFactory
 
 helpers do
    def get_parent_dir directory
@@ -77,7 +80,7 @@ post '/edit-handler/*' do
    edit_spec = Charge::Factories::EditSpecFactory::from_form_params params
    enforce_static_prefix edit_spec.key
    stream do |output|
-      editor = Charge::Actions::Editor.new edit_spec 
+      editor = Charge::Actions::Editor.new edit_spec
       editor.set_output_stream output
       editor.edit
    end
