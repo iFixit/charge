@@ -1,0 +1,25 @@
+<h2>Browse</h2>
+<h3><%= @directory %> + <a href="/upload/<%= @directory %>">Upload a new file here</a></h3>
+
+<ul>
+   <li>📁 -
+      <a href="/browse/<%= @parent_directory %>">
+         ..
+      </a>
+   </li>
+<% for @item in @items['common_prefixes'] %>
+   <li>📁 -
+      <a href="/browse/<%= @item.prefix %>">
+         <%= @item.prefix %>
+      </a>
+   </li>
+<% end %>
+<br>
+<% for @item in @items['contents'] %>
+   <li><%= @item['size'] / 1024 %>K -
+      <a href="/view/<%= @item['key'] %>">
+         <%= @item['key'] %></li>
+      </a>
+   </li>
+<% end %>
+</ul>
