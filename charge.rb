@@ -6,7 +6,7 @@ require 'lib/charge/charge'
 
 require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
-require 'lib/charge/factories/references'
+require 'lib/charge/factories/reference_factory'
 
 SOURCE_BUCKET='ifixit-static-source'
 LIVE_BUCKET='ifixit-assets'

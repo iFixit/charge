@@ -2,7 +2,7 @@ require 'charge'
 
 module Charge
    module Values
-      class S3Object
+      class S3Reference
          attr :key
 
          attr :size
