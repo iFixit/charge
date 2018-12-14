@@ -6,7 +6,7 @@ module Charge
          attr :key
 
          def initialize image_link
-            set_ket image_link.key
+            set_key image_link.key
          end
 
          def bucket
@@ -23,6 +23,16 @@ module Charge
 
          def root_url
            return Config.url_root + bucket + '/'
+         end
+
+         def exists_in_s3?
+            s3service = Config.s3service.new
+            return s3service.exists_in_s3? bucket(), @key
+         end
+
+         def describe
+            s3service = Config.s3service.new
+            return s3service.exists_in_s3? bucket(), @key
          end
       end
    end

@@ -16,9 +16,9 @@ module Charge
 
       # Metadata is in the source bucket with a prefix added.
       class MetadataObject < S3Object
-         METADATA_PREFIX = 'metadata'
+         METADATA_PREFIX = 'metadata/'
          def set_key key
-            @key = METADATA_PREFIX + '/' + key
+            @key = METADATA_PREFIX + key
          end
       end
    end

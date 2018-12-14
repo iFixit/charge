@@ -62,6 +62,14 @@ module Charge
             return s3bucket.object(key).exists?
          end
 
+         def head_object bucket, key
+            resp = client().head_object({
+               bucket: bucket,
+               key: key,
+            })
+            return resp.to_h
+         end
+
          def find_largest_objects(bucket, prefix, n = 50)
             return find_whole_bucket(bucket, prefix).sort_by { |item|
                   item['size']
