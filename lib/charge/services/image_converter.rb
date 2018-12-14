@@ -1,6 +1,6 @@
 require 'mini_magick'
 
-require 'lib/charge/values/conversion_spec'
+require 'values/conversion_spec'
 
 require 'tempfile'
 require 'shellwords'

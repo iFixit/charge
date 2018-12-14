@@ -1,5 +1,5 @@
-require 'lib/charge/values/conversion_spec'
-require 'lib/charge/values/edit_spec'
+require 'values/conversion_spec'
+require 'values/edit_spec'
 
 module Charge
    module Factories

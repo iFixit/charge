@@ -1,9 +1,11 @@
-require 'lib/charge/services/s3'
+$LOAD_PATH.unshift File.dirname(__FILE__)
 
-require 'lib/charge/actions/uploader'
-require 'lib/charge/actions/editor'
+require 'services/s3'
 
-require 'lib/charge/exceptions'
+require 'actions/uploader'
+require 'actions/editor'
+
+require 'exceptions'
 
 module Charge
    # Charge Configuration Singleton

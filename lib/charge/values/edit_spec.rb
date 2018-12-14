@@ -1,4 +1,4 @@
-require 'lib/charge/factories/conversion_spec_factory'
+require 'factories/conversion_spec_factory'
 
 module Charge
    module Values
