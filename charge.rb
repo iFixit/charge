@@ -10,10 +10,7 @@ require 'lib/charge/factories/references'
 
 
 # Old requires
-require './lib/references'
-
 require './lib/charge_config'
-require './lib/reference_factory'
 
 SOURCE_BUCKET='ifixit-static-source'
 LIVE_BUCKET='ifixit-assets'
@@ -31,7 +28,6 @@ Charge::Config.stub_uploads # !!!
 config = ChargeConfig.new SOURCE_BUCKET, LIVE_BUCKET
 config.set_url_root S3_URL_ROOT
 
-reference_factory = ReferenceFactory.new config
 references = Charge::Factories::ReferenceFactory
 
 helpers do
