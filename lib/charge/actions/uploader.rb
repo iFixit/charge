@@ -1,8 +1,8 @@
-require 'lib/charge/charge'
-require 'lib/charge/values/upload_spec'
-require 'lib/charge/services/image_converter'
-require 'lib/charge/helpers/streaming_output'
-require 'lib/charge/helpers/imageurl'
+require 'charge'
+require 'values/upload_spec'
+require 'services/image_converter'
+require 'helpers/streaming_output'
+require 'helpers/imageurl'
 
 require 'tempfile'
 

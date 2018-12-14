@@ -1,5 +1,5 @@
-require 'lib/charge/charge'
-require 'lib/charge/values/s3object'
+require 'charge'
+require 'values/s3object'
 
 module Charge
    module Values

@@ -1,5 +1,5 @@
-require 'lib/charge/charge'
-require 'lib/charge/values/references'
+require 'charge'
+require 'values/references'
 
 module Charge
    module Factories

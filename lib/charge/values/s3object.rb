@@ -1,4 +1,4 @@
-require 'lib/charge/charge'
+require 'charge'
 
 module Charge
    module Values

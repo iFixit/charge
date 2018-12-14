@@ -1,4 +1,4 @@
-require 'lib/charge/values/upload_spec'
+require 'values/upload_spec'
 
 module Charge
    module Factories
