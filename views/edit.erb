@@ -1,0 +1,48 @@
+<p> Original:
+   <li>Link: <a href="<%= @source_reference.url %>"><%= @source_reference.url %></a></li>
+<% if @source_reference.exists_in_s3? %>
+   <li>Size: <%= @source_reference.data[:content_length] / 1024 %>K</li>
+   <li>Content-Type: <%= @source_reference.data[:content_type] %></li>
+   <li>Last Modified: <%= @source_reference.data[:last_modified] %></li>
+<% else %>
+   <li><b>Does not exist in S3!</b></li>
+<% end %>
+</p>
+
+<form method="POST" action="/edit-handler/<%= @source_reference.key %>">
+   <hr>
+   <h3>Select a size: (Bounding Box)</h3>
+   <hr>
+   <table>
+      <tr><td><input type="radio" name="size" value="0" checked>Don't Resize<td></tr>
+      <tr><td><input type="radio" name="size" value="2180">Huge<td>(2180x2180)</tr>
+      <tr><td><input type="radio" name="size" value="1080">Large<td>(1080x1080)</tr>
+      <tr><td><input type="radio" name="size" value="720">Medium<td>(720x720)</tr>
+      <tr><td><input type="radio" name="size" value="480">Small<td>(480x480)</tr>
+      <tr><td><input type="radio" name="size" value="200">Tile<td>(200x200)</tr>
+      <tr><td><input type="radio" name="size" value="100">Icon<td>(100x100)</tr>
+      <tr><td><input type="radio" name="size" value="custom">Custom Resize<td></tr>
+      <tr><td><td><input type="number" name="custom-size"
+            value="" min="10" max="4096" step="10"></tr>
+   <table>
+   <hr>
+
+   <h3>Select a quality</h3>
+   <table>
+      <tr><td><input type="radio" name="quality" value="90">Great<td>90</tr>
+      <tr><td><input type="radio" name="quality" value="85" checked>Good<td>85</tr>
+      <tr><td><input type="radio" name="quality" value="80">Small file size<td>80</tr>
+      <tr><td><input type="radio" name="quality" value="70">Very small file size<td>70</tr>
+      <tr><td><input type="radio" name="quality" value="custom">custom quality<td></tr>
+      <tr><td><td><input type="number" name="custom-quality"
+            value="85" min="60" max="100" step="1"></tr>
+   </table>
+
+   <input type="submit" value="Edit">
+   <hr>
+</form>
+
+<hr>
+<h2>Current Source Image:</h2>
+<hr>
+<img src="<%= @source_reference.url %>" />

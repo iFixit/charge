@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Worst Offenders</title>
+   </head>
+   <body>
+      <h1>Largest Static Images Live on the Site</h1>
+      <hr>
+      <ul>
+         <% for @item in @biggest %>
+            <li><%= @item['size'] / 1024 %>K - <a href="<%= "/view/" + @item['key'] %>"><%= @item['key'] %></a></li>
+         <% end %>
+      </ul>
+   </body>
+</html>

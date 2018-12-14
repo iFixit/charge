@@ -1,0 +1,52 @@
+<h2> View </h2>
+<h3><%= @key %></h3>
+<a href="/browse/<%= @parent_directory %>">↑ Parent Directory</a>
+
+<p> Live:
+</p>
+<ul>
+   <li>
+      Link: <a href="<%= @live_reference.url %>"><%= @live_reference.url %></a>
+   </li>
+<% if @live_reference.exists_in_s3? %>
+   <li>Size: <%= @live_reference.data[:content_length] / 1024 %>K</li>
+   <li>Content-Type: <%= @live_reference.data[:content_type] %></li>
+   <li>Last Modified: <%= @live_reference.data[:last_modified] %></li>
+<% else %>
+   <li><b>Does not exist in S3!</b></li>
+<% end %>
+</ul>
+
+<p> Original:
+<ul>
+   <li>
+      Link:
+         <a href="<%= @source_reference.url %>"><%= @source_reference.url %></a>
+   </li>
+<% if @source_reference.exists_in_s3? %>
+   <li>Size: <%= @source_reference.data[:content_length] / 1024 %>K</li>
+   <li>Content-Type: <%= @source_reference.data[:content_type] %></li>
+   <li>Last Modified: <%= @source_reference.data[:last_modified] %></li>
+<% else %>
+   <li><b>Does not exist in S3!</b></li>
+<% end %>
+</ul>
+</p>
+
+<a href="/edit/<%= @key %>">
+   <h3>Edit this image</h3>
+</a>
+
+<hr>
+<h2>Current Live Image:</h2>
+<hr>
+<img src="<%= @live_reference.url %>" />
+<hr>
+<h2>Current Source Image:</h2>
+<hr>
+<img src="<%= @source_reference.url %>" />
+
+<script>
+	console.log("Did something go wrong?");
+	console.log("Visit: https://charge.cominor.com/restore-original/<%= @key %>");
+</script>

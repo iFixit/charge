@@ -1,0 +1,18 @@
+<h2>Upload a file</h2>
+<hr>
+<form method="POST"
+      action="/upload-handler/<%= @directory %>"
+      enctype="multipart/form-data">
+   <hr>
+   <br><input type="file" name="file">
+   <hr>
+   <br><label for="default_conversion">Use the default image conversion process:</label>
+   <input type="checkbox" id="default_conversion" name="default_conversion" checked>
+   <br><label for="convert_to_jpeg">Convert file to JPEG:</label>
+   <input type="checkbox" id="convert_to_jpeg" name="convert_to_jpeg">
+   <br><label for="allow_overwrite">Allow overwriting source files:</label>
+   <input type="checkbox" id="allow_overwrite" name="allow_overwrite">
+
+   <hr>
+   <input type="submit" value="Upload">
+</form>
