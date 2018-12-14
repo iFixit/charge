@@ -25,6 +25,16 @@ module Charge
             @region = Config.region
          end
 
+         def items_in_bucket(bucket, prefix)
+            resp = client().list_objects_v2({
+              bucket: bucket, # required
+              delimiter: '/',
+              #max_keys: 1000, # ???
+              prefix: prefix,
+            })
+            return resp
+         end
+
          def download bucket, key
             puts "Downloading #{key}..."
             downloaded_file = Tempfile.new('from_s3')

@@ -8,7 +8,6 @@ require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
 
 # Old requires
-require './lib/s3_lister'
 require './lib/references'
 
 require './lib/charge_config'
@@ -26,8 +25,6 @@ Charge::Config.set_url_root S3_URL_ROOT
 Charge::Config.set_base_prefix BASE_PREFIX
 
 Charge::Config.stub_uploads # !!!
-
-lister = S3Lister.new
 
 config = ChargeConfig.new SOURCE_BUCKET, LIVE_BUCKET
 config.set_url_root S3_URL_ROOT
@@ -52,7 +49,8 @@ get '/browse/*' do
    @directory = params[:splat].first
    @parent_directory = get_parent_dir @directory
    enforce_static_prefix @directory
-   @items = lister.items_in_bucket(LIVE_BUCKET, @directory)
+   s3service = Charge::Config.s3service.new()
+   @items = s3service.items_in_bucket(LIVE_BUCKET, @directory)
    erb :browse
 end
 
