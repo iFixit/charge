@@ -1,15 +1,15 @@
 <p> Original:
-   <li>Link: <a href="<%= @source_reference.url %>"><%= @source_reference.url %></a></li>
-<% if @source_reference.exists_in_s3? %>
-   <li>Size: <%= @source_reference.size / 1024 %>K</li>
-   <li>Content-Type: <%= @source_reference.type %></li>
-   <li>Last Modified: <%= @source_reference.last_modified %></li>
+   <li>Link: <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a></li>
+<% if @asset.source.exists_in_s3? %>
+   <li>Size: <%= @asset.source.size / 1024 %>K</li>
+   <li>Content-Type: <%= @asset.source.type %></li>
+   <li>Last Modified: <%= @asset.source.last_modified %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
 </p>
 
-<form method="POST" action="/edit-handler/<%= @source_reference.key %>">
+<form method="POST" action="/edit-handler/<%= @asset.key %>">
    <hr>
    <h3>Select a size: (Bounding Box)</h3>
    <hr>
@@ -45,4 +45,4 @@
 <hr>
 <h2>Current Source Image:</h2>
 <hr>
-<img src="<%= @source_reference.url %>" />
+<img src="<%= @asset.source.url %>" />
