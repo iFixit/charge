@@ -1,0 +1,3 @@
+#!/bin/bash -ex
+
+docker run --rm --name charge -d -p 8881:8881 charge ruby charge.rb
