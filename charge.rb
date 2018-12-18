@@ -78,6 +78,7 @@ get '/upload/*' do
 end
 
 post '/upload-handler/*' do
+   halt 400, "you must choose a file to upload!" if params[:file].nil?
    upload_spec = Charge::Factories::UploadSpecFactory::from_form_params params
    enforce_static_prefix upload_spec.key
    stream do |output|

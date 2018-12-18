@@ -1,13 +1,4 @@
-<p> Original:
-   <li>Link: <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a></li>
-<% if @asset.source.exists_in_s3? %>
-   <li>Size: <%= @asset.source.size / 1024 %>K</li>
-   <li>Content-Type: <%= @asset.source.type %></li>
-   <li>Last Modified: <%= @asset.source.last_modified %></li>
-<% else %>
-   <li><b>Does not exist in S3!</b></li>
-<% end %>
-</p>
+<%= erb :original_metadata %>
 
 <form method="POST" action="/edit-handler/<%= @asset.key %>">
    <hr>

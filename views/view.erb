@@ -2,36 +2,8 @@
 <h3><%= @asset.key %></h3>
 <a href="/browse/<%= @parent_directory %>">↑ Parent Directory</a>
 
-<p> Live:
-</p>
-<ul>
-   <li>
-      Link: <a href="<%= @asset.live.url %>"><%= @asset.live.url %></a>
-   </li>
-<% if @asset.live.exists_in_s3? %>
-   <li>Size: <%= @asset.live.size / 1024 %>K</li>
-   <li>Content-Type: <%= @asset.live.type %></li>
-   <li>Last Modified: <%= @asset.live.last_modified %></li>
-<% else %>
-   <li><b>Does not exist in S3!</b></li>
-<% end %>
-</ul>
-
-<p> Original:
-<ul>
-   <li>
-      Link:
-         <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a>
-   </li>
-<% if @asset.source.exists_in_s3? %>
-   <li>Size: <%= @asset.source.size / 1024 %>K</li>
-   <li>Content-Type: <%= @asset.source.type %></li>
-   <li>Last Modified: <%= @asset.source.last_modified %></li>
-<% else %>
-   <li><b>Does not exist in S3!</b></li>
-<% end %>
-</ul>
-</p>
+<%= erb :live_metadata %>
+<%= erb :original_metadata %>
 
 <a href="/edit/<%= @asset.key %>">
    <h3>Edit this image</h3>

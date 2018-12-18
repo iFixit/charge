@@ -7,7 +7,10 @@ module Charge
 
          attr :size
          attr :type
+
          attr :last_modified
+         attr :cache_control
+         attr :etag
 
          def initialize key
             set_key key
@@ -44,7 +47,10 @@ module Charge
 
             @size = metadata[:content_length]
             @type = metadata[:content_type]
+
             @last_modified = metadata[:last_modified]
+            @cache_control = metadata[:cache_control]
+            @etag = metadata[:etag]
          end
       end
    end
