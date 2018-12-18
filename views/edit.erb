@@ -3,7 +3,9 @@
 <% if @asset.source.exists_in_s3? %>
    <li>Size: <%= @asset.source.size / 1024 %>K</li>
    <li>Content-Type: <%= @asset.source.type %></li>
-   <li>Last Modified: <%= @asset.source.last_modified %></li>
+   <li>last modified: <%= @asset.source.last_modified %></li>
+   <li>Cache-Control: <%= @asset.source.cache_control %></li>
+   <li>E-Tag: <%= @asset.source.etag.to_s %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
