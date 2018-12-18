@@ -8,6 +8,8 @@
    <li>Size: <%= @asset.live.size / 1024 %>K</li>
    <li>Content-Type: <%= @asset.live.type %></li>
    <li>Last Modified: <%= @asset.live.last_modified %></li>
+   <li>Cache-Control: <%= @asset.live.cache_control %></li>
+   <li>E-Tag: <%= @asset.live.etag.to_s %></li>
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
