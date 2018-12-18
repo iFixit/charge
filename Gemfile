@@ -5,9 +5,6 @@ gem 'aws-sdk-s3', '~> 1'
 
 gem "mini_magick"
 
-gem 'image_optim'
-gem 'image_optim_pack'
-
 group :test, :development do
    gem 'faker'
    gem 'rspec'

@@ -1,5 +1,8 @@
 require 'sinatra'
 
+set :bind, '0.0.0.0'
+set :port, ENV['CHARGE_PORT'] || 4567
+
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'lib/charge/charge'
