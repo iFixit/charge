@@ -1,5 +1,8 @@
 <p> Original:
-   <li>Link: <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a></li>
+<ul>
+   <li>
+      Link: <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a>
+   </li>
 <% if @asset.source.exists_in_s3? %>
    <li>Size: <%= @asset.source.size / 1024 %>K</li>
    <li>Content-Type: <%= @asset.source.type %></li>
@@ -9,4 +12,5 @@
 <% else %>
    <li><b>Does not exist in S3!</b></li>
 <% end %>
+</ul>
 </p>
