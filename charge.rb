@@ -23,6 +23,8 @@ Charge::Config.set_buckets SOURCE_BUCKET, LIVE_BUCKET
 Charge::Config.set_url_root S3_URL_ROOT
 Charge::Config.set_base_prefix BASE_PREFIX
 
+Charge::Config.stub_uploads unless ENV['ENABLE_S3_UPLOADS'] == true
+
 helpers do
    def get_parent_dir directory
       paths = directory.split('/')
