@@ -97,25 +97,23 @@ module Charge
          def upload_to_source
             source_bucket = Config.source_bucket
 
-            stream_warning "Skipping source upload for testing"
-            stream_msg "Displaying image instead!"
+            stream_msg "displaying uploaded image"
             size_k = @new_source_file.length / 1024 
             stream_msg "File Source File Size: #{size_k}K"
             stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_source_file}\">"
 
-            #@s3.upload(new_source_file, source_bucket, @upload_spec.key)
+            @s3.upload(@new_source_file, source_bucket, @upload_spec.key)
          end
 
          def upload_to_live
             live_bucket = Config.live_bucket
 
-            stream_warning "Uploading to the live ifixit-assets bucket is a no-op!"
-            stream_msg "displaying image instead!"
+            stream_msg "displaying new live image"
             size_k = @new_live_file.length / 1024 
             stream_msg "new live file size: #{size_k}k"
             stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_live_file}\">"
 
-            #@s3.upload(new_live_file, live_bucket, @upload_spec.key)
+            @s3.upload(@new_live_file, live_bucket, @upload_spec.key)
          end
 
          def record_metadata

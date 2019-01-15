@@ -1,7 +1,7 @@
 <p> Live:
 <ul>
    <li>
-      Link: <a href="<%= @asset.live.url %>"><%= @asset.live.url %></a>
+      Link: <a href="<%= @asset.live.uncached_url %>"><%= @asset.live.url %></a>
    </li>
 <% if @asset.live.exists_in_s3? %>
    <li>Size: <%= @asset.live.size / 1024 %>K</li>

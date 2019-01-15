@@ -5,6 +5,8 @@ require 'tempfile'
 module Charge
    module Services
       class S3
+         SECONDS_IN_A_YEAR = 60 * 60 * 24 * 365;
+
          # Used to filter large objects list
          IGNORED_LARGE_OBJECT_EXTS = [
             'pdf',
@@ -48,17 +50,23 @@ module Charge
 
          def upload file, bucket, key
             puts "Uploading '#{key}' to bucket: '#{bucket}'"
-            puts "upload is still a noop!"
-# Current implementation:
-#$secondsInYear = 60 * 60 * 24 * 365;                                    
-#$s3sync = 'aws s3 sync';                                                
-#$params = "{$dry} --acl public-read " .                                 
-# "--cache-control 'public, max-age={$secondsInYear}' --follow-symlinks";
+            s3_put_params = {
+               body: IO.read(file),
+               bucket: bucket,
+               key: key,
+               acl: 'public-read',
+               cache_control: "public, max-age=#{SECONDS_IN_A_YEAR}",
+            }
+
+            resp = client.put_object(s3_put_params)
+
+            puts "put_object response params:"
+            puts resp.to_h
          end
 
          def exists_in_s3? bucket, key
             s3 = Aws::S3::Resource.new(region: @region)
-            s3bucket = s3.bucket(bucket) 
+            s3bucket = s3.bucket(bucket)
             return s3bucket.object(key).exists?
          end
 

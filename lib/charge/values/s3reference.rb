@@ -29,6 +29,10 @@ module Charge
             return root_url + @key
          end
 
+         def uncached_url
+            return url + '?' + Time.new.to_i.to_s
+         end
+
          def root_url
            return Config.url_root + bucket + '/'
          end

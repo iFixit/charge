@@ -1,7 +1,7 @@
 <p> Original:
 <ul>
    <li>
-      Link: <a href="<%= @asset.source.url %>"><%= @asset.source.url %></a>
+      Link: <a href="<%= @asset.source.uncached_url %>"><%= @asset.source.url %></a>
    </li>
 <% if @asset.source.exists_in_s3? %>
    <li>Size: <%= @asset.source.size / 1024 %>K</li>
