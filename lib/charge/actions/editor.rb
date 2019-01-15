@@ -62,13 +62,12 @@ module Charge
          def upload_converted_file
             live_bucket = Config.live_bucket
 
-            stream_warning "Uploading to the live ifixit-assets bucket is a no-op!"
-            stream_msg "Displaying image instead!"
+            stream_msg "Displaying new live image:"
             size_k = @new_live_image.length / 1024 
             stream_msg "New Live File size: #{size_k}K"
             stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_live_image}\">"
 
-            #@s3.upload(@new_live_image, live_bucket, @upload_spec.key)
+            @s3.upload(@new_live_image, live_bucket, @edit_spec.key)
          end
 
          def record_metadata
