@@ -51,7 +51,7 @@ module Charge
          def upload file, bucket, key
             puts "Uploading '#{key}' to bucket: '#{bucket}'"
             s3_put_params = {
-               body: file.path,
+               body: file,
                bucket: bucket,
                key: key,
                acl: 'public-read',
