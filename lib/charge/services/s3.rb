@@ -51,14 +51,12 @@ module Charge
          def upload file, bucket, key
             puts "Uploading '#{key}' to bucket: '#{bucket}'"
             s3_put_params = {
-               body: file,
+               body: IO.read(file),
                bucket: bucket,
                key: key,
                acl: 'public-read',
                cache_control: "public, max-age=#{SECONDS_IN_A_YEAR}",
             }
-            puts "put_object request params:"
-            puts s3_put_params.to_h
 
             resp = client.put_object(s3_put_params)
 
