@@ -5,6 +5,8 @@ require 'services/image_converter'
 require 'helpers/streaming_output'
 require 'helpers/imageurl'
 
+require 'services/cache_buster'
+
 require 'tempfile'
 
 module Charge
@@ -68,6 +70,8 @@ module Charge
             stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_live_image}\">"
 
             @s3.upload(@new_live_image, live_bucket, @edit_spec.key)
+
+            Services::CacheBuster.bust_cache_on_hosts @edit_spec.key
          end
 
          def record_metadata
