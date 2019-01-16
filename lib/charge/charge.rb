@@ -23,6 +23,8 @@ module Charge
          attr_reader :url_root
          attr_reader :base_prefix
 
+         attr_reader :hosts_to_cache_bust
+
          def set_buckets source_bucket, live_bucket
             @source_bucket = source_bucket
             @live_bucket = live_bucket
@@ -38,6 +40,10 @@ module Charge
 
          def stub_uploads
             @s3service = Services::S3Stubbed
+         end
+
+         def set_hosts_to_cache_bust hosts_list
+            @hosts_to_cache_bust = hosts_list
          end
       end
    end
