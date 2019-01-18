@@ -3,6 +3,13 @@
 
 <ul>
    <li>📁 -
+      . / <form style="display: inline;" onsubmit="document.location = document.getElementById('dirInput').value + '/'; return false">
+         <input placeholder="Create a new directory" id="dirInput">
+         <button>+</button>
+      </form>
+   </li>
+
+   <li>📁 -
       <a href="/browse/<%= @parent_directory %>">
          ..
       </a>
