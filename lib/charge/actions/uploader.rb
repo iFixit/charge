@@ -18,7 +18,6 @@ module Charge
          def upload
             stream_msg "Uploading file '#{@upload_spec.key}'..."
             check_filesize
-            return if already_exists_in_s3?
 
             @uploaded_file = @upload_spec.file[:tempfile]
             @new_source_file = prepare_source_file
@@ -26,6 +25,7 @@ module Charge
 
             apply_conversion
 
+            return if already_exists_in_s3?
             upload_to_source
             upload_to_live
 
