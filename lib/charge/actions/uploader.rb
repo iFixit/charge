@@ -114,6 +114,10 @@ module Charge
             stream_msg "<img src=\"#{Helpers::ImageUrl.image_to_url 'image', @new_live_file}\">"
 
             @s3.upload(@new_live_file, live_bucket, @upload_spec.key)
+
+            if @upload_spec.allow_overwrite
+               Services::CacheBuster.bust_cache_on_hosts @upload_spec.key
+            end
          end
 
          def record_metadata
