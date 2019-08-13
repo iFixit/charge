@@ -1,6 +1,7 @@
 require 'aws-sdk-s3'
 
 require 'tempfile'
+require 'shellwords'
 
 module Charge
    module Services
@@ -117,7 +118,7 @@ module Charge
          end
 
          def glean_content_type file
-            content_type_with_charset = `file -bi #{file.path}`
+            content_type_with_charset = `file -bi #{file.path.shellescape}`
             content_type = content_type_with_charset.chomp.split(';').first
             return content_type || ""
          end
