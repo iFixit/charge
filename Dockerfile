@@ -5,7 +5,7 @@ ADD . /opt/charge
 
 WORKDIR /opt/charge
 
-RUN dnf -y install ruby rubygem-bundler ImageMagick pngquant \
+RUN dnf -y install ruby rubygem-bundler ImageMagick pngquant file \
    && bundle install --without test development
 
 ENV CHARGE_PORT=8881

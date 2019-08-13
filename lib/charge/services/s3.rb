@@ -50,12 +50,14 @@ module Charge
 
          def upload file, bucket, key
             puts "Uploading '#{key}' to bucket: '#{bucket}'"
+            content_type = glean_content_type file
             s3_put_params = {
                body: IO.read(file),
                bucket: bucket,
                key: key,
                acl: 'public-read',
                cache_control: "public, max-age=#{SECONDS_IN_A_YEAR}",
+               content_type: content_type,
             }
 
             resp = client.put_object(s3_put_params)
@@ -112,6 +114,12 @@ module Charge
                   raise StopIteration unless fetch_next
                end
             end.lazy
+         end
+
+         def glean_content_type file
+            content_type_with_charset = `file -bi #{file.path}`
+            content_type = content_type_with_charset.chomp.split(';').first
+            return content_type || ""
          end
       end
 
