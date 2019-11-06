@@ -128,7 +128,8 @@ module Charge
 
          def provide_view_link
             key = @upload_spec.key
-            stream_msg "View new file at <a href=\"/view/#{key}\">#{key}</a>"
+            stream_msg %Q(View new file at <a href="/view/#{key}">#{key}</a>)
+            stream_msg %Q(<a href="/edit/#{key}">Edit the new image</a>)
          end
       end
    end
