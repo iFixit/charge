@@ -10,15 +10,18 @@ module Charge
          end
 
          def source
-            return Values::SourceObject.new @key
+            @source ||= Values::SourceObject.new @key
+            return @source
          end
 
          def live
-            return Values::LiveObject.new @key
+            @live ||= Values::LiveObject.new @key
+            return @live
          end
 
          def metadata
-            return Values::MetadataObject.new @key
+            @metadata ||= Values::MetadataObject.new @key
+            return @metadata
          end
       end
    end
