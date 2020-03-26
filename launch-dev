@@ -1,0 +1,9 @@
+#!/bin/bash -ex
+
+docker rm -f charge-dev || true
+
+docker run --name charge-dev -d \
+   -p 4567:8881 \
+   -e ENABLE_S3_UPLOADS='false' \
+   charge \
+   ruby charge.rb
