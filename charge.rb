@@ -23,7 +23,7 @@ Charge::Config.set_buckets SOURCE_BUCKET, LIVE_BUCKET
 Charge::Config.set_url_root S3_URL_ROOT
 Charge::Config.set_base_prefix BASE_PREFIX
 
-hosts_to_cache_bust = ENV['HOSTS_TO_CACHE_BUST'].split(',') || []
+hosts_to_cache_bust = (ENV['HOSTS_TO_CACHE_BUST'] || '').split(',')
 Charge::Config.set_hosts_to_cache_bust hosts_to_cache_bust
 
 Charge::Config.stub_uploads unless ENV['ENABLE_S3_UPLOADS'] == 'true'
