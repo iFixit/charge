@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:32
 MAINTAINER "Daryl Metzler"
 
 RUN dnf -y install ruby rubygem-bundler ImageMagick pngquant file
