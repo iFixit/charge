@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'aws-sdk-s3', '~> 1'
+gem 'webrick'
+gem 'rexml', '3.2.6'
 
 gem "mini_magick"
 

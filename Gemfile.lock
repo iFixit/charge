@@ -62,6 +62,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    rexml (3.2.6)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -84,6 +85,7 @@ GEM
       tilt (~> 2.0)
     thor (1.0.1)
     tilt (2.0.11)
+    webrick (1.8.1)
 
 PLATFORMS
   ruby
@@ -94,9 +96,11 @@ DEPENDENCIES
   guard
   guard-rspec
   mini_magick
+  rexml (= 3.2.6)
   rspec
   rspec-core
   sinatra
+  webrick
 
 BUNDLED WITH
    2.1.4
