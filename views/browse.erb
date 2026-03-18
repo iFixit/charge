@@ -1,5 +1,5 @@
 <h2>Browse</h2>
-<h3><%= @directory %> + <a href="/upload/<%= @directory %>">Upload a new file here</a></h3>
+<h3><%= @directory %> + <a href="/upload/<%= @directory %>">Upload a new file here</a> | <a href="/bulk-upload/<%= @directory %>">Bulk upload</a></h3>
 
 <ul>
    <li>📁 -
@@ -19,14 +19,16 @@
       <a href="/browse/<%= @item.prefix %>">
          <%= @item.prefix %>
       </a>
+      <a href="/delete-dir/<%= @item.prefix %>" style="color: red; margin-left: 10px;">✕ delete</a>
    </li>
 <% end %>
 <br>
 <% for @item in @items['contents'] %>
    <li><%= @item['size'] / 1024 %>K -
       <a href="/view/<%= @item['key'] %>">
-         <%= @item['key'] %></li>
+         <%= @item['key'] %>
       </a>
+      <a href="/delete/<%= @item['key'] %>" style="color: red; margin-left: 10px;">✕ delete</a>
    </li>
 <% end %>
 </ul>

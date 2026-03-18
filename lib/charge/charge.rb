@@ -4,6 +4,8 @@ require 'services/s3'
 
 require 'actions/uploader'
 require 'actions/editor'
+require 'actions/deleter'
+require 'actions/bulk_uploader'
 
 require 'exceptions'
 
