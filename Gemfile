@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'aws-sdk-s3', '~> 1'
 gem 'rackup'
-gem 'webrick'
+gem 'puma'
 gem 'rexml', '3.2.6'
 
 gem "mini_magick"
