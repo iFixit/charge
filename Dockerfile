@@ -1,7 +1,16 @@
 FROM fedora:43
 MAINTAINER "Daryl Metzler"
 
-RUN dnf -y install ruby ruby-devel rubygem-bundler ImageMagick pngquant file gcc make redhat-rpm-config
+RUN dnf -y install \
+  ImageMagick \
+  file \
+  gcc \
+  make \
+  pngquant \
+  redhat-rpm-config \
+  ruby \
+  ruby-devel \
+  rubygem-bundler
 
 WORKDIR /opt/charge
 
