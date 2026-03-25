@@ -2,6 +2,8 @@ require 'sinatra'
 
 set :bind, '0.0.0.0'
 set :port, ENV['CHARGE_PORT'] || 4567
+set :server, 'puma'
+set :host_authorization, { permitted_hosts: [] }
 
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
