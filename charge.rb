@@ -13,6 +13,7 @@ require 'lib/charge/entities/asset'
 
 require 'lib/charge/factories/upload_spec_factory'
 require 'lib/charge/factories/edit_spec_factory'
+require 'lib/charge/factories/delete_spec_factory'
 
 SOURCE_BUCKET='ifixit-static-source'
 LIVE_BUCKET='ifixit-assets'
@@ -100,6 +101,54 @@ get '/restore-original/*' do
    enforce_static_prefix @key
    @asset = Charge::Entities::Asset.new @key
    'sorry, restoration not yet implemented'
+end
+
+get '/bulk-upload/*' do
+   @directory = params[:splat].first
+   enforce_static_prefix @directory
+   @bulk = true
+   erb :upload
+end
+
+post '/bulk-upload-handler/*' do
+   halt 400, "you must choose files to upload!" if params[:files].nil? || params[:files].empty?
+   upload_specs = Charge::Factories::UploadSpecFactory::from_form_params_bulk params
+   upload_specs.each { |spec| enforce_static_prefix spec.key }
+   stream do |output|
+      bulk_uploader = Charge::Actions::BulkUploader.new upload_specs
+      bulk_uploader.set_output_stream output
+      bulk_uploader.upload
+   end
+end
+
+get '/delete/*' do
+   @key = params[:splat].first
+   enforce_static_prefix @key
+   @is_directory = false
+   @parent_directory = get_parent_dir @key
+   erb :delete_confirm
+end
+
+get '/delete-dir/*' do
+   @key = params[:splat].first
+   enforce_static_prefix @key
+   @is_directory = true
+   @parent_directory = get_parent_dir @key
+   s3service = Charge::Config.s3service.new()
+   @affected_keys = s3service.all_keys_under(LIVE_BUCKET, @key)
+   erb :delete_confirm
+end
+
+post '/delete-handler/*' do
+   key = params[:splat].first
+   enforce_static_prefix key
+   is_directory = params['is_directory'] == 'true'
+   delete_spec = Charge::Factories::DeleteSpecFactory::from_params(key, is_directory: is_directory)
+   stream do |output|
+      deleter = Charge::Actions::Deleter.new delete_spec
+      deleter.set_output_stream output
+      deleter.delete
+   end
 end
 
 get '/worst' do

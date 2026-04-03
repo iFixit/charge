@@ -67,6 +67,18 @@ module Charge
             puts resp.to_h
          end
 
+         def delete bucket, key
+            puts "Deleting #{key} from bucket #{bucket}..."
+            client.delete_object({
+               bucket: bucket,
+               key: key,
+            })
+         end
+
+         def all_keys_under bucket, prefix
+            find_whole_bucket(bucket, prefix).map { |item| item['key'] }
+         end
+
          def exists_in_s3? bucket, key
             s3 = Aws::S3::Resource.new(region: @region)
             s3bucket = s3.bucket(bucket)
@@ -127,6 +139,9 @@ module Charge
       class S3Stubbed < S3
          def upload file, bucket, key
             puts "UPLOADS STUBBED FOR TESTING!"
+         end
+         def delete bucket, key
+            puts "DELETES STUBBED FOR TESTING!"
          end
       end
    end
