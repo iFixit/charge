@@ -7,4 +7,7 @@ module Charge
 
    class EditFailure < StandardError
    end
+
+   class ConversionFailed < StandardError
+   end
 end

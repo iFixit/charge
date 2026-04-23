@@ -17,7 +17,7 @@ module Charge
                   imagick = MiniMagick::Image.open input_path
                   resize_opt = self.build_resize_option conversion_spec
                   imagick.resize resize_opt unless resize_opt.nil?
-                  imagick.quality conversion_spec.quality 
+                  imagick.quality conversion_spec.quality
                   imagick.write output_path
                   puts "Image conversion successfull"
                   if imagick.type == "PNG"
@@ -25,9 +25,10 @@ module Charge
                      self.optimize_png conversion_spec.output_file
                   end
                   puts "Conversion process complete!"
-               rescue
-                  puts "Image conversion failed!"
-                  return false
+               rescue => e
+                  puts "Image conversion failed: #{e.message}"
+                  raise Charge::ConversionFailed,
+                     "Image conversion failed: #{e.message}"
                end
                return true
             end
