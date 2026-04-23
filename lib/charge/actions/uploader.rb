@@ -76,11 +76,16 @@ module Charge
          end
 
          def apply_conversion
-            if @upload_spec.do_conversion
+            if @upload_spec.do_conversion && !svg?
                convert_image
-            else 
+            else
+               stream_msg "Skipping default image conversion for SVG." if svg?
                @new_live_file = @new_source_file
             end
+         end
+
+         def svg?
+            File.extname(@upload_spec.filename).downcase == '.svg'
          end
 
          def convert_image
