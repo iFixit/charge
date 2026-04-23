@@ -54,10 +54,21 @@ module Charge
                         @source_image, @new_live_image, @edit_spec)
 
             stream_msg "Applying image conversion..."
-            Services::ImageConverter.convert_image @conversion
-            stream_msg "Image conversion complete!"
+            begin
+               Services::ImageConverter.convert_image @conversion
+            rescue Charge::ConversionFailed => e
+               stream_warning e.message
+               raise
+            end
 
-            new_size_k = @new_live_image.length / 1024 
+            if @new_live_image.length == 0
+               stream_warning "Conversion produced an empty file; aborting edit."
+               raise Charge::ConversionFailed,
+                  "Conversion produced an empty file for #{@edit_spec.key}"
+            end
+
+            stream_msg "Image conversion complete!"
+            new_size_k = @new_live_image.length / 1024
             stream_msg "Live file size after conversion: #{new_size_k}K"
          end
 

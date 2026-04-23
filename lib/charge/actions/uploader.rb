@@ -76,21 +76,37 @@ module Charge
          end
 
          def apply_conversion
-            if @upload_spec.do_conversion
+            if @upload_spec.do_conversion && !svg?
                convert_image
-            else 
+            else
+               stream_msg "Skipping default image conversion for SVG." if svg?
                @new_live_file = @new_source_file
             end
+         end
+
+         def svg?
+            File.extname(@upload_spec.filename).downcase == '.svg'
          end
 
          def convert_image
             @conversion = Factories::ConversionSpecFactory.default_conversion(
                   @new_source_file, @new_live_file)
             stream_msg "Applying default image conversion..."
-            Services::ImageConverter.convert_image @conversion
-            stream_msg "Default image conversion complete!"
+            begin
+               Services::ImageConverter.convert_image @conversion
+            rescue Charge::ConversionFailed => e
+               stream_warning e.message
+               raise
+            end
 
-            new_size_k = @new_live_file.length / 1024 
+            if @new_live_file.length == 0
+               stream_warning "Conversion produced an empty file; aborting upload."
+               raise Charge::ConversionFailed,
+                  "Conversion produced an empty file for #{@upload_spec.key}"
+            end
+
+            stream_msg "Default image conversion complete!"
+            new_size_k = @new_live_file.length / 1024
             stream_msg "Live file size after default conversion: #{new_size_k}K"
          end
 
